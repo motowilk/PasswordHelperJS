@@ -1,0 +1,161 @@
+/* Main body */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(120deg, #e5b20b, #de6e50);
+  color: azure;
+  font-family: 'Raleway', sans-serif;
+  min-height: 100VH;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header i form */
+
+header, form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20vh;
+}
+
+header {
+  gap: 20px;
+  flex-direction: column;
+  font-size: 2rem;
+  margin: 20px 20px;
+}
+
+h5 {
+  justify-content: center;
+}
+
+form input, form button{
+  padding: 0.5rem;
+  font-size: 2rem;
+  border: none;
+  background-color: azure;
+}
+
+form button {
+  color: #de6e50;
+  background: azure;
+  cursor: pointer;
+  transition: all;
+  min-width: 55px;
+}
+
+form button:hover {
+  color: azure;
+  background: #de6e50;
+}
+
+/* Wynik */
+.wynik-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px 20px 0 20px;
+  align-items: center;
+}
+
+.lista-wynikow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 10px;
+  justify-content: center;
+}
+.element-wyniku {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 100px;
+  transition: all 2s ease;
+}
+
+.pole-cyfra, .pole-litera {
+  background-color: azure;
+  color: black;
+  font-size: 2.2rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+}
+
+.pole-cyfra {
+  background-color: lightgray;
+  font-size: 1.7rem;
+  padding: 7px;
+}
+
+.pole-litera {
+  padding-top: 5px;
+}
+
+.pole-cyfra li, .pole-litera li {
+  flex: 1;
+}
+
+.button-zaznacz, .button-skasuj {
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 50px;
+  height: 50px;
+}
+
+.button-zaznacz {
+  background-color: #13b631;
+  color: azure;
+}
+
+.button-zaznacz:hover {
+  background-color: azure;
+  color: #13b631;
+}
+
+.button-skasuj {
+  background-color: #ef562b;
+  color: azure;
+}
+
+.button-skasuj:hover {
+  background-color: azure;
+  color: #ef562b;
+}
+
+.fa-check, .fa-trash {
+  pointer-events: none;
+}
+
+.wybrana {
+  background-color:palegreen;
+  width: 100px;
+  height: 100px;
+  font-size: 5rem;
+}
+
+.skasowana {
+  color: gray;
+}
+
+.przezroczysta {
+  opacity: 0.2;
+}
+
+.ukryty {
+  visibility: hidden;
+}
