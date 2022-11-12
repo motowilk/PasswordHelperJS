@@ -1,81 +1,105 @@
 // SELECTORS
-const poleHaslo = document.querySelector('.pole-haslo');
-const zbadajButton = document.querySelector('.button-zbadaj');
-const listaWynikow = document.querySelector('.lista-wynikow');
+const passwordField = document.querySelector('.passwordField');
+const splitButton = document.querySelector('.splitButton');
+const resultList = document.querySelector('.resultList');
 
 // EVENT HANDLERS
-zbadajButton.addEventListener('click', rozbijHaslo);
-listaWynikow.addEventListener('click', zaznaczSkasuj);
+document.body.addEventListener('click', splitEventListener);
 
 // FUNCTIONS
-function rozbijHaslo(event) {
-  // Powstrzymaj przed nadaniem formularza
-  event.preventDefault();  
+function splitEventListener(ev) {
+  console.log(ev.target);
 
-  // Rozbijaa poleHaslo na tablicę
-  if (poleHaslo.value != null || poleHaslo.value != "") {
-    let listaLiter = poleHaslo.value.split('');
-    let n = listaLiter.length;
-
-    for (let i = 0; i < n; i++) {
-      // Stwórz div: element-wyniku
-      const elementWynikuDiv = document.createElement('div');
-      elementWynikuDiv.classList.add('element-wyniku');
-
-      // Stwórz li: pole-cyfra
-      const cyfra = document.createElement('li');
-      cyfra.innerText = (i + 1) + ':';
-      cyfra.classList.add('pole-cyfra');
-      // Przypnij pole-cyfra do element-wyniku
-      elementWynikuDiv.appendChild(cyfra);
-
-      // Stwórz li: pole-litera
-      const litera = document.createElement('li');
-      litera.innerText = listaLiter[i];
-      litera.classList.add('pole-litera');
-      // Przypnij pole-litera do element-wyniku
-      elementWynikuDiv.appendChild(litera);
-      
-      // Stwórz guzik: button-zaznacz
-      const zaznaczButton = document.createElement('button');
-      zaznaczButton.title = "zaznacz";
-      zaznaczButton.classList.add('button-zaznacz');
-      zaznaczButton.innerHTML = '<i class="fa fa-thin fa-check"></i>';
-      // Przypnij guzik do elemnt-wyniku
-      elementWynikuDiv.appendChild(zaznaczButton);
-
-      // Stwórz guzik: button-skasuj
-      const skasujButton = document.createElement('button');
-      skasujButton.title = "skasuj";
-      skasujButton.classList.add('button-skasuj');
-      skasujButton.innerHTML = '<i class="fa fa-thin fa-trash"></i>';
-      // Przypnij guzik do: element-wyniku
-      elementWynikuDiv.appendChild(skasujButton);
-
-      // Przypnij cały element-wyniku do ul: lista-wyników
-      listaWynikow.appendChild(elementWynikuDiv);
-    }
-
-    // Wyczyść poleHasla
-    poleHaslo.value = "";
+  if (ev.target.classList[0] === 'splitButton') {
+    splitPassword(ev);
+  }
+  if (ev.target.classList[0] === 'checkButton' || ev.target.classList[0] === 'deleteButton') {
+    checkSkasuj(ev);
+  }
+  if (ev.target.className === "charField wybrana") {
+    przywrocOrginal(ev);
   }
 }
 
-function zaznaczSkasuj (e) {
-  console.log(e.target);
+
+function splitPassword(event) {
+  // Powstrzymaj przed nadaniem formularza
+  event.preventDefault();  
+
+  // Rozbijaa password na tablicę
+  if (password.value != null || password.value != "") {
+    let listaLiter = password.value.split('');
+    let n = listaLiter.length;
+
+    for (let i = 0; i < n; i++) {
+      // Stwórz div: oneResultChar
+      const elementWynikuDiv = document.createElement('div');
+      elementWynikuDiv.classList.add('oneResultChar');
+
+      // Stwórz li: numberField
+      const cyfra = document.createElement('li');
+      cyfra.innerText = (i + 1) + ':';
+      cyfra.classList.add('numberField');
+      // Przypnij numberField do oneResultChar
+      elementWynikuDiv.appendChild(cyfra);
+
+      // Stwórz li: charField
+      const litera = document.createElement('li');
+      litera.innerText = listaLiter[i];
+      litera.classList.add('charField');
+      // Przypnij charField do oneResultChar
+      elementWynikuDiv.appendChild(litera);
+      
+      // Stwórz guzik: checkButton
+      const checkButton = document.createElement('button');
+      checkButton.title = "check";
+      checkButton.classList.add('checkButton');
+      checkButton.innerHTML = '<i class="fa fa-thin fa-check"></i>';
+      // Przypnij guzik do elemnt-wyniku
+      elementWynikuDiv.appendChild(checkButton);
+
+      // Stwórz guzik: deleteButton
+      const deleteButton = document.createElement('button');
+      deleteButton.title = "delete";
+      deleteButton.classList.add('deleteButton');
+      deleteButton.innerHTML = '<i class="fa fa-thin fa-trash"></i>';
+      // Przypnij guzik do: oneResultChar
+      elementWynikuDiv.appendChild(deleteButton);
+
+      // Przypnij cały oneResultChar do ul: lista-wyników
+      resultList.appendChild(elementWynikuDiv);
+    }
+    // Wyczyść poleHasla
+    password.value = "";
+  }
+}
+
+function checkSkasuj (e) {
+  //console.log(e.target);
   const item = e.target;
 
-  // zaznacz or skasuj
-  if (item.title === "zaznacz") {
-    item.parentElement.querySelector('.pole-cyfra').remove();
-    item.parentElement.querySelector('.button-skasuj').remove();
-
-    item.parentElement.querySelector('.pole-litera').classList.toggle('wybrana');    
-    item.remove();
+  // check or delete
+  if (item.title === "check") {
+    if (item.parentElement.classList[1] === 'transparent') {
+      item.parentElement.classList.remove('transparent');
+    }
+    item.parentElement.querySelector('.numberField').classList.toggle('hidden');
+    item.parentElement.querySelector('.deleteButton').classList.toggle('hidden');
+    item.classList.toggle('hidden');
+    item.parentElement.querySelector('.charField').classList.toggle('wybrana');    
   }
 
-  if (item.title === "skasuj") {
-    item.parentElement.querySelector(".pole-litera").classList.toggle('skasowana');
-    item.parentElement.classList.toggle('przezroczysta');
+  if (item.title === "delete") {
+    item.parentElement.querySelector(".charField").classList.toggle('skasowana');
+    item.parentElement.classList.toggle('transparent');
   }
+}
+
+function przywrocOrginal(e) {
+
+  const item = e.target;
+  item.parentElement.querySelector('.charField').classList.remove('wybrana');
+  item.parentElement.querySelector('.numberField').classList.remove('hidden');
+  item.parentElement.querySelector('.deleteButton').classList.remove('hidden');
+  item.parentElement.querySelector('.checkButton').classList.remove('hidden');
 }
